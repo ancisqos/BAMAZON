@@ -19,19 +19,20 @@ const connection = mysql.createConnection({
 // Create connection.
 connection.connect(function(err) {
 	if (err) throw err;
+	console.log("connected as id " + connection.threadId)
 	startBam();
 });
 
-// use Inquirer?
+// Code to "Display all of the items available for sale"
 function startBam() {
-	inquirer
-	  .prompt{
-	  	name: "action",
-	  	type: "list",
-	  	message: "Welcome to Bamazon, the greatest internet marketplace in the history of internet marketplaces. How can we help you today?"
-	 	// Code to "Display all of the items available for sale"
-	  }
+	connection.query("SELECT * FROM products", function(err, res) {
+		for (var i = 0; i < res.length; i++) {
+			console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].price);
+		}
+		console.log("------------------------------")
+	})
 }
+
 
 //Prompt users with two choices:
 
