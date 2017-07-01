@@ -22,7 +22,8 @@ connection.connect(function(err) {
 	console.log("connected as id " + connection.threadId)
 	console.log("------------------------------")
 	startBam();
-	askBam();
+	idBam();
+	// quantityBam();
 });
 
 // Code to "Display all of the items available for sale"
@@ -36,30 +37,42 @@ function startBam() {
 }
 
 // Code to 
-function askBam() {
+function idBam() {
 	connection.query("SELECT * FROM products", function(err, res) {
 		if (err) throw err;
 
-		inquirer
-		   .prompt([
-		   	    name: ""
-		   	    type: "list"
-		   	    message: "What is the ID number of the product you would like to buy?"
+		inquirer.prompt([
+		   {
+		   	    name: "product choice",
+		   	    type: "list",
+		   	    message: "What is the ID number of the product you would like to buy?",
                 choices: [1001, 1002, 1003, 1004, 1005, 2001, 3001, 4001, 4002, 5001]
-		   	])
+		   	}])
 		   .then(function(answer) {
 		   	    if (answer === 1001, 1003, 4001) {
-		   	    console.log("That item is out of stock, sorry!")
-		   	    
+		   	    console.log("That item is out of stock, sorry!");
+		   	    console.log("------------------------------")
+
 		   	    connection.end();
 
-		   	    }
-		   	    else if ()
-		   	    	
-                else if 
-
-		   });
 	}
+        else {
+        inquirer.prompt([
+           {
+                 name: "quantity",
+                 type: "input",
+                 message: "How many units of the product would you like to buy?",
+                 validate: function(value) {
+                 	if (isNaN(value) === false) {
+                 		return true;
+                 		}
+                 	return false;
+                 		}
+                	}])
+
+                }
+		   });
+	})
 }
 //Prompt users with two choices:
 
