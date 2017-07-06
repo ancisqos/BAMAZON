@@ -36,6 +36,8 @@ function startBam() {
 	})
 }
 
+// Jonny's advice: Write a function that loops through the quantity based on the ID, and spit that back to you
+
 // Code to 
 function idBam() {
 	connection.query("SELECT * FROM products", function(err, res) {
