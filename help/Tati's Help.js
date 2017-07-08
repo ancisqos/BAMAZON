@@ -38,5 +38,5 @@ connection.query("SELECT * FROM products", function(err, res) {
 		if(selectedResult.stockQuantity == 0) {
 			console.log("That item is out of stock, sorry!");
 		}
-	})
+	}
 })

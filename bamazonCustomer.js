@@ -19,8 +19,8 @@ const connection = mysql.createConnection({
 // Create connection
 connection.connect(function(err) {
 	if (err) throw err;
-	console.log("connected as id " + connection.threadId)
-	console.log("------------------------------")
+	console.log("connected as id " + connection.threadId);
+	console.log("------------------------------");
 	startBam();
 	idBam();
 	// quantityBam();
@@ -32,50 +32,39 @@ function startBam() {
 		for (var i = 0; i < res.length; i++) {
 			console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].price);
 		}
-		console.log("------------------------------")
-	})
+		console.log("------------------------------");
+	});
 }
-
-// Jonny's advice: Write a function that loops through the quantity based on the ID, and spit that back to you
 
 // Code to 
 function idBam() {
+
 	connection.query("SELECT * FROM products", function(err, res) {
 		if (err) throw err;
+
+		const resultIds = res.map(function(result) {
+			return String(result.item_id);
+		});
 
 		inquirer.prompt([
 		   {
 		   	    name: "product choice",
-		   	    type: "list",
+		   	    type: "input",
 		   	    message: "What is the ID number of the product you would like to buy?",
-                choices: [1001, 1002, 1003, 1004, 1005, 2001, 3001, 4001, 4002, 5001]
-		   	}])
-		   .then(function(answer) {
-		   	    if (answer === 1001, 1003, 4001) {
-		   	    console.log("That item is out of stock, sorry!");
-		   	    console.log("------------------------------")
+                choices: resultIds
+		   	}
+		])
+		.then(function(answer) {
+		   	    
+		   	    const selectedResult = res.filter(result => String(result.item_id) === answer)[0];
 
-		   	    connection.end();
-
-	}
-        else {
-        inquirer.prompt([
-           {
-                 name: "quantity",
-                 type: "input",
-                 message: "How many units of the product would you like to buy?",
-                 validate: function(value) {
-                 	if (isNaN(value) === false) {
-                 		return true;
-                 		}
-                 	return false;
-                 		}
-                	}])
-
-                }
-		   });
-	})
+		   	    if (selectedResult.stock_quantity === 0) {
+		   	    	console.log("That item is out of stock, sorry!");
+		   	    } 
+		   	});
+	});
 }
+      
 //Prompt users with two choices:
 
 // 1. Ask for ID of product they would like to buy
