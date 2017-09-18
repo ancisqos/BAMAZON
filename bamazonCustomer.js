@@ -4,14 +4,14 @@ const inquirer = require("inquirer");
 
 // Store credentials for connection to SQL database
 const connection = mysql.createConnection({
-	host: "127.0.0.1",
+	host: "localhost",
 	port: 3306,
 
     // Username
 	user: "root",
 
     // Password
-	password: "root",
+	password: "",
 	database: "Bamazon"
 
 });
