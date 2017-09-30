@@ -91,7 +91,7 @@ function promptCustomerForQuantity(product) {
 
       // If there isn't enough of the chosen product and quantity, let the user know and re-run loadProducts
       if (quantity > product.stock_quantity) {
-        console.log("\nInsufficient quantity!");
+        console.log("\nSorry, we have run out of that product.");
         loadProducts();
       }
       else {
